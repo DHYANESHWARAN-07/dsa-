@@ -1,0 +1,34 @@
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+        if (target > nums[nums.length-1]) {
+            return nums.length;
+        }
+        if (target < nums[0]) {
+            return 0;
+        }
+        if (nums.length == 1) {
+            return 0;
+        }
+        return binarySearch(nums, target, 0, nums.length - 1);
+    }
+
+    private int binarySearch(int[] nums, int target, int left, int right){
+        if (right - left == 1) {
+            if (nums[left] < target && target < nums[right]) {
+                return right;
+            } else if (nums[left] == target) {
+                return left;
+            } else if (nums[right] == target) {
+                return right;
+            }
+        }
+        int mid = (left + right) / 2;
+        int result;
+        if (nums[mid] < target) {
+            result = binarySearch(nums, target, mid, right);
+        } else {
+            result = binarySearch(nums, target, left, mid);
+        }
+        return result;
+    }
+}
